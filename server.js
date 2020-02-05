@@ -22,3 +22,22 @@ app.use(bodyParser.urlencoded({
 app.listen(backendPort, function() {
     console.log('Express server listening on port ' + backendPort);
 });
+
+let mock = {
+    userData: require('./mock/userData'),
+    feedData: require('./mock/feedData'),
+}
+
+//login
+app.post('/login', function(req, res, next) {
+    let data = JSON.parse(req.body);
+    let username = data.username;
+    let password = data.password;
+    if (username === 'testuser' && password === 'testpass') {
+        return res.status(200).json(mock.userData);
+    } else {
+        return res
+        .status(200)
+        .send('{"error": {"text":"Bad request wrong username and password"}}');
+    }
+});
