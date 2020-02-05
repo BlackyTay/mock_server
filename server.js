@@ -41,3 +41,17 @@ app.post('/login', function(req, res, next) {
         .send('{"error": {"text":"Bad request wrong username and password"}}');
     }
 });
+
+//feed
+app.post('/feed', function(req, res, next) {
+    let data = JSON.parse(req.body);
+    let username = data.username;
+    let password = data.password;
+    if (username === 'testuser' && password === 'testpass') {
+        return res.status(200).json(mock.userData);
+    } else {
+        return res
+        .status(200)
+        .send('{"error": {"text":"Bad request wrong username and password"}}');
+    }
+});
